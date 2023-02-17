@@ -42,8 +42,17 @@ function displayTemperature(response) {
   );
 }
 
-let apiKey = "b8d25oeac1850fetbd383bb0f7745a41";
-let city = "Chicago";
-let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+function search(city) {
+  let apiKey = "b8d25oeac1850fetbd383bb0f7745a41";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+  axios.get(apiUrl).then(displayTemperature);
+}
 
-axios.get(apiUrl).then(displayTemperature);
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
+}
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
